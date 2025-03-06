@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./assets/css/estilos.css">
+        <title>Delfina Store</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    </head>
+    <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="./assets/img/Ropita/LOGO.png" class="logo">
+        <button class="menu-toggle" id="menu-toggle">
+            <i class="fas fa-bars"></i> <!-- Icono de hamburguesa -->
+        </button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="Index.html">Home</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="altaproductos.html">Alta Productos</a></li>
+        </ul>
+    </nav>
+
+    <header class="header">
+        <img src="./assets/img/1.png" alt="Imagen Header">
+    </header>
+        <section class="nosotros">
+            <div class="container">
+                <h2>✨ Vistiendo Sueños, Creando Sonrisas ✨</h2>
+                <p>
+                    En <strong>Delfina Store</strong>, creemos que cada niña merece sentirse especial y única.
+                    Diseñamos ropa con amor, combinando comodidad, estilo y calidad para que cada prenda
+                    sea una expresión de alegría y ternura.
+                </p>
+                <p>
+                    Desde pequeños detalles hasta grandes tendencias, nuestra misión es hacer que cada momento sea mágico.
+                    Porque la moda no es solo vestir, es una forma de soñar.
+                </p>
+                <p class="cta">Únete a nuestra comunidad y haz que cada día sea una pasarela de felicidad. 💖</p>
+            </div>
+        </section>
+        
+    </body>
+    <footer class="footer">
+        <p class="contacto-info">
+            📧 Correo: <a href="mailto:contacto@delfinastore.com">contacto@delfinastore.com</a>
+        </p>
+        <p class="contacto-info">
+            📞 Teléfono: <a href="tel:+5491155555555">+54 9 11 5555-5555</a>
+        </p>
+        <div class="social-icons">
+            <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://tiktok.com" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </footer>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuToggle.addEventListener("click", function () {
+        navLinks.classList.toggle("show");
+    });
+});
+    </script>
+</html>

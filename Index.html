@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delfina Store</title>
+    <link rel="stylesheet" href="./assets/css/estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="./assets/img/Ropita/LOGO.png" class="logo">
+        <button class="menu-toggle" id="menu-toggle">
+            <i class="fas fa-bars"></i> <!-- Icono de hamburguesa -->
+        </button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="Index.html">Home</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="altaproductos.html">Alta Productos</a></li>
+        </ul>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar productos...">
+            <button id="searchBtn">🔍</button>
+        </div>
+    </nav>
+    <header class="header">
+        <img src="./assets/img/1.png" alt="Imagen Header">
+    </header>
+    
+    <main>
+        <section id="home">
+            <h1>Bienvenidos a nuestra tienda</h1>
+            <p>Encuentra la mejor ropa para niñas con diseños únicos y modernos.</p>
+            <br>
+            <div class="contenedor" id="productos-container">
+            </div>
+        </section>
+    </main>
+
+    <!-- JavaScript para mostrar los productos dinámicamente -->
+    <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuToggle.addEventListener("click", function () {
+        navLinks.classList.toggle("show");
+    });
+});
+
+        // Array de productos
+        const productos = [
+            { nombre: "Blusa Lara", precio: 40999, imagen: "./assets/img/Ropita/BLUSA LARA.webp" },
+            { nombre: "Calza Milenka", precio: 40999, imagen: "./assets/img/Ropita/CALZA MILENKA.webp" },
+            { nombre: "Blusa Julia", precio: 40999, imagen: "./assets/img/Ropita/BLUSA JULIA.webp" },
+            { nombre: "Jumper Aurora", precio: 40999, imagen: "./assets/img/Ropita/JUMPER AURORA.webp" },
+            { nombre: "Jumper Emma", precio: 40999, imagen: "./assets/img/Ropita/JUMPER EMMA.webp" },
+            { nombre: "Saquito volado Sofia", precio: 40999, imagen: "./assets/img/Ropita/SAQUITO VOLADO SOFIA.webp" },
+            { nombre: "Short Alma", precio: 40999, imagen: "./assets/img/Ropita/SHORT ALMA.webp" },
+            { nombre: "Short Eva", precio: 40999, imagen: "./assets/img/Ropita/SHORT EVA.webp" },
+            { nombre: "Sweater Lola", precio: 40999, imagen: "./assets/img/Ropita/SWEATER LOLA.webp" },
+        ];
+
+        const contenedor = document.getElementById("productos-container");
+        const searchInput = document.getElementById("searchInput");
+        const searchBtn = document.getElementById("searchBtn");
+
+        // Función para mostrar los productos que voy a usar al iniciar la pagina
+        function mostrarProductos(filtrados = productos) {
+            contenedor.innerHTML = ""; // Limpiar contenido previo
+            if (filtrados.length === 0) {
+                contenedor.innerHTML = "<p>No se encontraron productos</p>";
+                return;
+            }
+            filtrados.forEach(producto => {
+                const card = document.createElement("div");
+                card.classList.add("card");
+                card.innerHTML = `
+                    <img src="${producto.imagen}" alt="${producto.nombre}" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">${producto.nombre}</h3>
+                        <div class="card-price">$${producto.precio.toLocaleString()}</div>
+                        <button class="btn-add-to-cart">Agregar</button>
+                    </div>
+                `;
+                contenedor.appendChild(card);
+            });
+        }
+
+        // Función para filtrar productos con el nombre del producto
+        function filtrarProductos() {
+            const textoBusqueda = searchInput.value.toLowerCase().trim();
+            const productosFiltrados = productos.filter(producto =>
+                producto.nombre.toLowerCase().includes(textoBusqueda)
+            );
+            mostrarProductos(productosFiltrados);
+        }
+
+        // Busca con click
+        searchBtn.addEventListener("click", filtrarProductos);
+
+        // Busca al escribir
+        searchInput.addEventListener("keyup", filtrarProductos);
+
+        // Carga al iniciar pagina
+        document.addEventListener("DOMContentLoaded", () => mostrarProductos());
+
+    </script>
+
+</body>
+<footer class="footer">
+    <p class="contacto-info">
+        📧 Correo: <a href="mailto:contacto@delfinastore.com">contacto@delfinastore.com</a>
+    </p>
+    <p class="contacto-info">
+        📞 Teléfono: <a href="tel:+5491155555555">+54 9 11 5555-5555</a>
+    </p>
+    <div class="social-icons">
+        <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://tiktok.com" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+    </div>
+</footer>
+</html>

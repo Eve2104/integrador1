@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./assets/css/estilos.css">
+        <title>Delfina Store</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    </head>
+    <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="./assets/img/Ropita/LOGO.png" class="logo">
+        <button class="menu-toggle" id="menu-toggle">
+            <i class="fas fa-bars"></i> <!-- Icono de hamburguesa -->
+        </button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="Index.html">Home</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="altaproductos.html">Alta Productos</a></li>
+        </ul>
+ 
+    </nav>
+
+    <header class="header">
+        <img src="./assets/img/1.png" alt="Imagen Header">
+    </header>
+    <section class="contacto">
+        <div class="container">
+            <h2>📩 Contáctanos</h2>
+            <p>Si tienes alguna pregunta o sugerencia, no dudes en escribirnos. Estamos aquí para ayudarte. 💖</p>
+            <form class="contact-form">
+                <div class="input-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                    <small class="error-message"></small>
+                </div>
+                <div class="input-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" required placeholder="Tu correo electrónico">
+                    <small class="error-message"></small>
+                </div>
+                <div class="input-group">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" rows="4" required placeholder="Escribe tu mensaje aquí"></textarea>
+                    <small class="error-message"></small>
+                </div>
+    
+
+                <div class="loading-bar-container">
+                    <div class="loading-bar"></div>
+                </div>
+    
+                <p id="response-message"></p>
+    
+                <button type="submit" class="btn-submit">Enviar</button>
+            </form>
+        </div>
+    </section>
+    
+    
+        
+    </body>
+    <footer class="footer">
+        <p class="contacto-info">
+            📧 Correo: <a href="mailto:contacto@delfinastore.com">contacto@delfinastore.com</a>
+        </p>
+        <p class="contacto-info">
+            📞 Teléfono: <a href="tel:+5491155555555">+54 9 11 5555-5555</a>
+        </p>
+        <div class="social-icons">
+            <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://tiktok.com" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </footer>
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuToggle.addEventListener("click", function () {
+        navLinks.classList.toggle("show");
+    });
+    const form = document.querySelector(".contact-form");
+    const nombre = document.getElementById("nombre");
+    const email = document.getElementById("email");
+    const mensaje = document.getElementById("mensaje");
+    const responseMessage = document.getElementById("response-message");
+    const loadingBarContainer = document.querySelector(".loading-bar-container");
+    const loadingBar = document.querySelector(".loading-bar");
+
+    // Función para mostrar errores
+    function mostrarError(input, mensaje) {
+        const errorElement = input.nextElementSibling;
+        errorElement.textContent = mensaje;
+        input.style.borderColor = "red";
+    }
+
+    // Función para limpiar errores
+    function limpiarError(input) {
+        const errorElement = input.nextElementSibling;
+        errorElement.textContent = "";
+        input.style.borderColor = "";
+    }
+
+    // Validaciones en pantalla
+    nombre.addEventListener("input", function () {
+        if (nombre.value.trim().length < 3) {
+            mostrarError(nombre, "El nombre debe tener al menos 3 caracteres.");
+        } else {
+            limpiarError(nombre);
+        }
+    });
+
+    email.addEventListener("input", function () {
+        const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!regexEmail.test(email.value.trim())) {
+            mostrarError(email, "Introduce un correo electrónico válido.");
+        } else {
+            limpiarError(email);
+        }
+    });
+
+    mensaje.addEventListener("input", function () {
+        if (mensaje.value.trim().length < 10) {
+            mostrarError(mensaje, "El mensaje debe tener al menos 10 caracteres.");
+        } else {
+            limpiarError(mensaje);
+        }
+    });
+
+    // Evento de envío del formulario
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); 
+
+        let isValid = true;
+
+        // Validaciones antes de enviar
+        if (nombre.value.trim().length < 3) {
+            mostrarError(nombre, "El nombre debe tener al menos 3 caracteres.");
+            isValid = false;
+        }
+        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.value.trim())) {
+            mostrarError(email, "Introduce un correo electrónico válido.");
+            isValid = false;
+        }
+        if (mensaje.value.trim().length < 10) {
+            mostrarError(mensaje, "El mensaje debe tener al menos 10 caracteres.");
+            isValid = false;
+        }
+
+        if (!isValid) return;
+
+        // Simula el envío del formulario
+        responseMessage.textContent = "";
+        loadingBarContainer.style.display = "block";
+        loadingBar.style.width = "100%";
+
+        setTimeout(() => {
+            loadingBarContainer.style.display = "none";
+            loadingBar.style.width = "0%";
+
+            
+            const success = Math.random() > 0.2; // 80% de éxito, 20% de error
+
+            if (success) {
+                responseMessage.textContent = "✅ ¡Mensaje enviado con éxito!";
+                responseMessage.style.color = "green";
+                form.reset();
+            } else {
+                responseMessage.textContent = "❌ Error al enviar el mensaje. Inténtalo de nuevo.";
+                responseMessage.style.color = "red";
+            }
+        }, 2000); // Simula un tiempo de respuesta de 2 segundos
+    });
+});
+
+    </script>
+</html>

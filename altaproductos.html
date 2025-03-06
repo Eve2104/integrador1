@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta de Productos | Delfina Store</title>
+    <link rel="stylesheet" href="./assets/css/estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="./assets/img/Ropita/LOGO.png" class="logo">
+        <button class="menu-toggle" id="menu-toggle">
+            <i class="fas fa-bars"></i> <!-- Icono de hamburguesa -->
+        </button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="Index.html">Home</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="altaproductos.html">Alta Productos</a></li>
+        </ul>
+    </nav>
+
+        <header class="header">
+            <img src="./assets/img/1.png" alt="Imagen Header">
+        </header>
+
+        <main class="contenedor-formulario">
+            <h1>Alta de Producto</h1>
+            <form class="formulario">
+                <label for="nombre">Nombre del Producto:</label>
+                <input type="text" id="nombre" name="nombre">
+                <small class="error-message"></small>
+        
+                <label for="precio">Precio:</label>
+                <input type="number" id="precio" name="precio">
+                <small class="error-message"></small>
+        
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" rows="4"></textarea>
+                <small class="error-message"></small>
+        
+                <label for="imagen">Imagen del Producto:</label>
+                <input type="file" id="imagen" name="imagen" accept="image/*">
+                <small class="error-message"></small>
+                <div class="preview-container">
+                    <img id="preview" src="#" alt="Vista previa de la imagen" style="display: none;">
+                </div>
+        
+                <label for="categoria">Categoría:</label>
+                <select id="categoria" name="categoria">
+                    <option value="" disabled selected>Selecciona una categoría</option>
+                    <option value="blusas">Blusas</option>
+                    <option value="pantalones">Pantalones</option>
+                    <option value="vestidos">Vestidos</option>
+                    <option value="accesorios">Accesorios</option>
+                </select>
+                <small class="error-message"></small>
+        
+                <!-- Barra de carga -->
+                <div class="loading-bar-container">
+                    <div class="loading-bar"></div>
+                </div>
+        
+                <!-- Mensaje de respuesta -->
+                <p id="response-message"></p>
+        
+                <button type="submit">Agregar Producto</button>
+            </form>
+        </main>
+        
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuToggle.addEventListener("click", function () {
+        navLinks.classList.toggle("show");
+    });
+});
+      
+        document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector(".formulario");
+    const nombre = document.getElementById("nombre");
+    const precio = document.getElementById("precio");
+    const descripcion = document.getElementById("descripcion");
+    const imagen = document.getElementById("imagen");
+    const categoria = document.getElementById("categoria");
+    const preview = document.getElementById("preview");
+    const responseMessage = document.getElementById("response-message");
+    const loadingBarContainer = document.querySelector(".loading-bar-container");
+    const loadingBar = document.querySelector(".loading-bar");
+
+    // Función para mostrar errores
+    function mostrarError(input, mensaje) {
+        const errorElement = input.nextElementSibling;
+        errorElement.textContent = mensaje;
+        input.style.borderColor = "red";
+    }
+
+    // Función para limpiar errores
+    function limpiarError(input) {
+        const errorElement = input.nextElementSibling;
+        errorElement.textContent = "";
+        input.style.borderColor = "";
+    }
+
+    // Validaciones en tiempo real
+    nombre.addEventListener("input", function () {
+        if (nombre.value.trim().length < 3) {
+            mostrarError(nombre, "El nombre debe tener al menos 3 caracteres.");
+        } else {
+            limpiarError(nombre);
+        }
+    });
+
+    precio.addEventListener("input", function () {
+        if (precio.value <= 0) {
+            mostrarError(precio, "El precio debe ser mayor a 0.");
+        } else {
+            limpiarError(precio);
+        }
+    });
+
+    descripcion.addEventListener("input", function () {
+        if (descripcion.value.trim().length < 10) {
+            mostrarError(descripcion, "La descripción debe tener al menos 10 caracteres.");
+        } else {
+            limpiarError(descripcion);
+        }
+    });
+
+    categoria.addEventListener("change", function () {
+        if (categoria.value === "") {
+            mostrarError(categoria, "Debes seleccionar una categoría.");
+        } else {
+            limpiarError(categoria);
+        }
+    });
+
+    imagen.addEventListener("change", function () {
+        const file = imagen.files[0];
+
+        if (!file) {
+            mostrarError(imagen, "Debes subir una imagen.");
+            preview.style.display = "none";
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.style.display = "block";
+            limpiarError(imagen);
+        };
+        reader.readAsDataURL(file);
+    });
+
+    // Evento de envío del formulario
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        let isValid = true;
+
+        // Validaciones antes de enviar
+        if (nombre.value.trim().length < 3) {
+            mostrarError(nombre, "El nombre debe tener al menos 3 caracteres.");
+            isValid = false;
+        }
+        if (precio.value <= 0) {
+            mostrarError(precio, "El precio debe ser mayor a 0.");
+            isValid = false;
+        }
+        if (descripcion.value.trim().length < 10) {
+            mostrarError(descripcion, "La descripción debe tener al menos 10 caracteres.");
+            isValid = false;
+        }
+        if (!imagen.files.length) {
+            mostrarError(imagen, "Debes subir una imagen.");
+            isValid = false;
+        }
+        if (categoria.value === "") {
+            mostrarError(categoria, "Debes seleccionar una categoría.");
+            isValid = false;
+        }
+
+        if (!isValid) return;
+
+        // Simula el envío del formulario
+        responseMessage.textContent = "";
+        loadingBarContainer.style.display = "block";
+        loadingBar.style.width = "100%";
+
+        setTimeout(() => {
+            loadingBarContainer.style.display = "none";
+            loadingBar.style.width = "0%";
+
+            // Simulación de respuesta del servidor
+            const success = Math.random() > 0.2; // 80% de éxito, 20% de error
+
+            if (success) {
+                responseMessage.textContent = "✅ ¡Producto agregado con éxito!";
+                responseMessage.style.color = "green";
+                form.reset();
+                preview.style.display = "none";
+            } else {
+                responseMessage.textContent = "❌ Error al agregar el producto. Inténtalo de nuevo.";
+                responseMessage.style.color = "red";
+            }
+        }, 2000);
+    });
+});
+
+    </script>
+</body>
+<footer class="footer">
+    <p class="contacto-info">
+        📧 Correo: <a href="mailto:contacto@delfinastore.com">contacto@delfinastore.com</a>
+    </p>
+    <p class="contacto-info">
+        📞 Teléfono: <a href="tel:+5491155555555">+54 9 11 5555-5555</a>
+    </p>
+    <div class="social-icons">
+        <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://tiktok.com" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+    </div>
+</footer>
+</html>

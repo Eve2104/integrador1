@@ -1,0 +1,478 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #FFF5F7;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    
+}
+.navbar .logo {
+    max-width: 50px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Logo */
+.navbar .logo img {
+    max-height: 50px;
+    width: auto;
+    display: block;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ff69b4;
+}
+
+/* Barra de búsqueda */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 5px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    
+}
+
+
+.menu-toggle {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: none;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        order: 1;
+    }
+    
+    .nav-links {
+        display: none; /* Ocultar el menú inicialmente */
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #FFF5F7;
+        padding: 10px 0;
+        text-align: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links.show {
+        display: flex; /* Mostrar cuando se haga clic en el menú */
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+    }
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    width: 150px;
+    border-radius: 20px;
+}
+
+.search-bar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.header {
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #fef0f5;
+}
+
+.header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Contenido principal */
+main {
+    padding: 40px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 32px;
+    color: #333;
+}
+
+p {
+    font-size: 18px;
+    color: #555;
+}
+
+/* Sección Nosotros */
+.nosotros {
+    background: #FFF5F7;
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 40px auto;
+}
+
+.nosotros h2 {
+    font-size: 30px;
+    color: #D83F87;
+    margin-bottom: 20px;
+}
+
+.nosotros p {
+    font-size: 24px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.nosotros .cta {
+    font-weight: bold;
+    color: #C2185B;
+    font-size: 26px;
+}
+
+/* Cards de productos */
+.contenedor {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas por fila */
+    gap: 20px;
+    padding: 0 10%;
+    justify-content: center;
+}
+.card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card-image {
+    width: 100%;
+    height: 300px; /* Ajusta la altura según sea necesario */
+    object-fit: contain; /* Mantiene la imagen completa sin recortar */
+    border-bottom: 1px solid #e1e1e1;
+    background-color: #fff; /* Evita espacios vacíos raros en algunas imágenes */
+}
+
+
+.card-content {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.card-price {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #FFC7C7;
+    margin-bottom: 15px;
+}
+
+.btn-add-to-cart {
+    background-color: #FFC7C7;
+    color: white;
+    font-size: 1em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-add-to-cart::before {
+    content: '\1F6D2';
+    font-size: 1.2em;
+}
+
+.btn-add-to-cart:hover {
+    background-color: #c0392b;
+}
+
+/* Para hacerlo responsive en pantallas más pequeñas */
+@media (max-width: 1024px) {
+    .contenedor {
+        grid-template-columns: repeat(2, 1fr); /* 2 productos por fila en tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        grid-template-columns: repeat(1, 1fr); /* 1 producto por fila en móviles */
+    }
+}
+
+/* Formulario de contacto */
+.contacto {
+    background: #FFF5F7;
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 40px auto;
+    max-width: 1200px;
+}
+
+.contacto h2 {
+    font-size: 28px;
+    color: #D83F87;
+    margin-bottom: 20px;
+}
+
+.contacto form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contacto input, .contacto textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.contacto button {
+    background-color: #FFC7C7;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.contacto button:hover {
+    background-color: #c0392b;
+}
+
+
+/* Contenedor del formulario */
+.contenedor-formulario {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #FFF5F7;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    font-size: 28px;
+    color: #D83F87;
+    margin-bottom: 20px;
+}
+
+/* Formulario */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+.formulario label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.formulario input,
+.formulario textarea,
+.formulario select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.formulario button {
+    background-color: #FFC7C7;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.formulario button:hover {
+    background-color: #c0392b;
+}
+
+/* Vista previa de imagen */
+.preview-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.preview-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+
+/*Footer*/
+
+.footer {
+    background: #FFF5F7;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+}
+
+.footer .contacto-info {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.footer .contacto-info a {
+    text-decoration: none;
+    color: #D83F87;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.footer .contacto-info a:hover {
+    color: #ff69b4;
+}
+
+/* Redes sociales */
+.social-icons {
+    margin-top: 15px;
+}
+
+.social-icons a {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 24px;
+    color: #D83F87;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ff69b4;
+    transform: scale(1.2);
+}
+/*Fin Footer*/
+
+/*Contacto y alta Agregados*/
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+.loading-bar-container {
+    width: 100%;
+    height: 4px;
+    background: #ddd;
+    border-radius: 2px;
+    overflow: hidden;
+    display: none;
+    margin-top: 10px;
+}
+
+.loading-bar {
+    width: 0%;
+    height: 100%;
+    background: #D83F87;
+    transition: width 2s linear;
+}
+
+#response-message {
+    font-size: 16px;
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.preview-container {
+    margin-top: 10px;
+}
+
+.preview-container img {
+    max-width: 100%;
+    max-height: 150px;
+    border-radius: 5px;
+    display: block;
+    margin-top: 5px;
+}
+
+/*Fin contacto y alta agregados*/
+
+
+
+
